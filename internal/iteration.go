@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"github.com/packagewjx/kmeanspp/utils"
+	"github.com/packagewjx/kmeanspp/internal/utils"
 	"math"
 	"sync"
 )

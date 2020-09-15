@@ -2,7 +2,7 @@ package evaluate
 
 import (
 	"github.com/packagewjx/kmeanspp/internal"
-	"github.com/packagewjx/kmeanspp/utils"
+	"github.com/packagewjx/kmeanspp/internal/utils"
 	"math"
 	"math/rand"
 	"sync"

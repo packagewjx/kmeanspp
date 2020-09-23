@@ -13,12 +13,12 @@ import (
 func TestKmeansppEmotionDataset(t *testing.T) {
 	dataset := readArffData("test/dataset/emotions.arff")
 
-	class := KMeansPP(1, 30, dataset)
+	_, class := KMeansPP(1, 30, dataset)
 	last := evaluate.ClassCenterDistanceSquareTotal(dataset, class, 1)
 	fmt.Printf("K=%d dist=%.2f\n", 1, last)
 
 	for i := 2; i <= 30; i++ {
-		class = KMeansPP(i, 30, dataset)
+		_, class = KMeansPP(i, 30, dataset)
 		dist := evaluate.ClassCenterDistanceSquareTotal(dataset, class, i)
 		fmt.Printf("K=%d dist=%.2f diff%%=%.2f%%\n", i, dist, (last-dist)/last*100)
 		last = dist

@@ -42,24 +42,14 @@ func chooseCenter(centers []int, data [][]float32) int {
 
 	// Sum here due to no atomic float
 	sum := utils.SumFloat32(dist)
-	dist[0] = dist[0] / sum
 	for i := 1; i < len(dist); i++ {
-		dist[i] = dist[i-1] + dist[i]/sum
+		dist[i] += dist[i-1]
 	}
-	// Due to floating point addition error, set to 1 explicitly.
-	for i := len(dist) - 2; i >= 0; i-- {
-		if dist[i] == dist[len(dist)-1] {
-			dist[i] = 1
-		} else {
-			break
-		}
-	}
-	dist[len(dist)-1] = 1
 
 	// We don't need to check duplicity here because this binary search algorithm always find the first one equal
 	// or larger than p. The probability to choose the previously chosen center, say ci, is 0, meaning that
 	// dist[ci] == dist[ci - 1], so the algorithm return ci - 1 (ci - 2 if dist[ci - 1] == dist[ci - 2] and so on),
 	// in other word, it always return the point which has not been chosen before.
-	p := rand.Float32()
+	p := rand.Float32() * sum
 	return utils.BinarySearchFloat32(dist, p)
 }
